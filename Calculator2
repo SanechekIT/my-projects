@@ -1,0 +1,64 @@
+# Инициализация списка для хранения расходов [категория, сумма]
+all_expenses = [
+    ["еда", 5500], 
+    ["напитки", 4000], 
+    ["одежда", 10000]
+]
+
+print("=== УЧЕТ РАСХОДОВ ===\n")
+
+while True:
+    # Запрос категории расхода
+    category = input("Введите категорию расхода (или 'стоп' для завершения): ").strip()
+    
+    # Проверка условия выхода
+    if category.lower() == "стоп":
+        break
+    
+    # Пропуск пустых вводов
+    if not category:
+        print("Ошибка! Категория не может быть пустой.\n")
+        continue
+    
+    # Запрос суммы расхода
+    amount_input = input(f'Введите сумму расхода для категории "{category}": ').strip()
+    
+    # Проверка корректности ввода суммы
+    try:
+        amount = float(amount_input)
+        if amount <= 0:
+            print("Ошибка! Сумма должна быть положительным числом.\n")
+            continue
+        
+        # Добавление расхода в список
+        all_expenses.append([category, amount])
+        print(f"✓ Добавлено: {category} - {amount:,.2f} руб.\n")
+        
+    except ValueError:
+        print("Ошибка! Введите числовое значение для суммы!\n")
+
+# Вывод результатов
+print("\n" + "="*40)
+print("ИТОГОВЫЙ ОТЧЕТ:")
+print("="*40)
+
+# Вывод всех трат с форматированием
+print("\nСписок всех трат:")
+for i, expense in enumerate(all_expenses, 1):
+    print(f"{i}. {expense[0]}: {expense[1]:,.2f} руб.")
+
+# Расчет и вывод общей суммы
+total = sum(expense[1] for expense in all_expenses)
+print(f"\nОбщая сумма расходов: {total:,.2f} руб.")
+
+# Дополнительная статистика
+if all_expenses:
+    avg_expense = total / len(all_expenses)
+    max_expense = max(all_expenses, key=lambda x: x[1])
+    min_expense = min(all_expenses, key=lambda x: x[1])
+    
+    print(f"Средний расход на категорию: {avg_expense:,.2f} руб.")
+    print(f"Самая большая трата: {max_expense[0]} - {max_expense[1]:,.2f} руб.")
+    print(f"Самая маленькая трата: {min_expense[0]} - {min_expense[1]:,.2f} руб.")
+
+print("\nСпасибо за использование программы!")
