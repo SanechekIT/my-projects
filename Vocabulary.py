@@ -3,6 +3,7 @@ vocabulary = {"apple": ["яблоко", "яблоня"],
               "dog": ["собака"]
               }
 
+
 def add_word(vocab, word, translation):
     word = word.strip().lower()
     translation = translation.strip().lower()
